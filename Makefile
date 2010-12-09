@@ -1,13 +1,14 @@
 CC=gcc --std=c99 -Iinclude
 
-all: build/squish
+all: bin/squish
 
 build/gopt.o : src/gopt.c include/gopt.h
 	mkdir -p build
 	$(CC) -c -o build/gopt.o src/gopt.c
 
-build/squish : build/gopt.o src/squish.c
-	$(CC) -Wall -pedantic -Werror -o build/squish src/squish.c build/gopt.o
+bin/squish : build/gopt.o src/squish.c
+	mkdir -p bin 
+	$(CC) -Wall -pedantic -Werror -o bin/squish src/squish.c build/gopt.o
 
 clean:
-	rm -rf build
+	rm -rf build bin

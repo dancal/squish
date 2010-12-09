@@ -12,3 +12,6 @@ bin/squish: build/gopt.o src/squish.c
 
 clean:
 	rm -rf build bin
+
+install: bin/squish
+	install bin/squish /usr/bin/squish 

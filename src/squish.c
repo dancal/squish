@@ -47,15 +47,6 @@ int main(int argc, const char **argv){
   gopt_arg(options, 's', &separator);
 
 
-  const char *output_file = NULL;
-  if(gopt_arg(options, 'o', &output_file) && strcmp(output_file, "-" )){
-    output = fopen(output_file, "w");
-    if(!output){
-      fprintf(stderr, "squish: Could not open output file %s for writing\n",  output_file);
-      usage_fail = true;
-    }
-  }
-
   if(argc > 2){
     fprintf(stderr, "Too many arguments: ");
     for(int i = 1; i < argc; i++){
@@ -69,6 +60,15 @@ int main(int argc, const char **argv){
     input = fopen(argv[1], "r");
     if(!input){
       fprintf(stderr, "squish: Could not open input file %s for reading\n", argv[1]);
+      usage_fail = true;
+    }
+  }
+
+  const char *output_file = NULL;
+  if(gopt_arg(options, 'o', &output_file) && strcmp(output_file, "-" ) && !usage_fail){
+    output = fopen(output_file, "w");
+    if(!output){
+      fprintf(stderr, "squish: Could not open output file %s for writing\n",  output_file);
       usage_fail = true;
     }
   }

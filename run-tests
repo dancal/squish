@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+
+./bin/squish < test-files/1 > test-files/1.squished
+./bin/squish -d '-' test-files/2 -o test-files/2.squished
+./bin/squish -s ':' test-files/3 -o test-files/3.squished
+./bin/squish -d ':' -s ',' test-files/4 -o test-files/4.squished
+
+for i in $(seq 1 4); do 
+  cmp test-files/$i.expected test-files/$i.squished
+done
+
